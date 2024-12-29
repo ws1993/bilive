@@ -3,7 +3,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
 let config = defineConfig({
-  base: "/bilive/",
+  base: "/",
   title: "bilive",
   description: "Official documentation",
   themeConfig: {
@@ -33,7 +33,7 @@ let config = defineConfig({
       level: [2, 4]
     },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/timerring/bilive' }
+      { icon: 'github', link: 'https://bilive.timerring.com' }
     ],
   },
     // optionally, you can pass MermaidConfig
