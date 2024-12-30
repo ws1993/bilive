@@ -196,7 +196,7 @@ logs # 日志文件夹
 ### Installation(无 GPU 版本)
 无 GPU 版本过程基本同上，可以跳过步骤 3 配置 whisper 的部分，需要注意在执行步骤 5 **之前**完成以下设置将确保完全用 CPU 渲染视频弹幕。
 
-1. 请将 `src/config.py` 文件中的 `GPU_EXIST` 参数设置为 `False`。（若不置为 `False` 且则会使用 CPU 推理，不推荐，可自行根据硬件条件进行尝试。）
+1. 请将 `src/config.py` 文件中的 `GPU_EXIST` 参数设置为 `False`。（若置为 `True` 但又没有 GPU 或者 Nvidia 驱动找不到，则会使用 CPU 推理，非常消耗 CPU 计算资源，不推荐，可自行根据硬件条件进行尝试。）
 2. 将 `MODEL_TYPE` 调整为 `merge` 或者 `append`。
 
 > [!TIP]
