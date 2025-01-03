@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "bilive"
   text: "Official documentation"
-  tagline: 7 x 24 小时无人监守录制、渲染弹幕、识别字幕、自动上传，启动项目，人人都是录播员。
+  tagline: 7 x 24 小时无人监守录制、渲染弹幕、识别字幕、自动切片、自动上传，启动项目，人人都是录播员。
   actions:
     - theme: brand
       text: 现在开始

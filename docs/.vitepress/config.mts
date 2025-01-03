@@ -33,7 +33,7 @@ let config = defineConfig({
       level: [2, 4]
     },
     socialLinks: [
-      { icon: 'github', link: 'https://bilive.timerring.com' }
+      { icon: 'github', link: 'https://github.com/timerring/bilive' }
     ],
   },
     // optionally, you can pass MermaidConfig
