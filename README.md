@@ -4,7 +4,7 @@
     <img src="assets/headerLight.svg" alt="BILIVE" />
   </picture>
 
-*7 x 24 小时无人监守录制、渲染弹幕、识别字幕、自动切片、自动上传，启动项目，人人都是录播员。*
+*7 x 24 小时无人监守录制、渲染弹幕、识别字幕、自动切片、自动上传、兼容超低配机器，启动项目，人人都是录播员。*
 
 [:page_facing_up: Documentation](https://timerring.github.io/bilive/) |
 [:gear: Installation](#quick-start) |
