@@ -82,7 +82,7 @@ graph TD
 更详细的教程请参考文档 [bilive](https://timerring.github.io/bilive/)
 
 > [!NOTE]
-> 如果你是 windows 用户，请不要使用命令提示符（Command Prompt）或 Windows PowerShell，请使用 [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4) 或 Linux 终端例如 WSL 或 **Git Bash**(推荐)。
+> 如果你是 windows 用户，请使用 WSL 运行本项目。
 
 ### Mode
 首先介绍本项目三种不同的处理模式：
