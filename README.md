@@ -138,7 +138,7 @@ pip install -r requirements.txt
 
 #### 4. biliup & bilitool 登录
 
-首先按照 [biliup-rs](https://github.com/biliup/biliup-rs) 登录b站，登录脚本在 `src/upload/biliup` ，登录产生的`cookies.json`保留在该文件夹下即可。
+首先按照 [biliup-rs](https://github.com/biliup/biliup-rs) 登录b站，登录脚本在 `src/utils/biliup` ，登录产生的`cookies.json`保留在该文件夹下即可。
 
 然后同样通过 `bilitool login` 扫码登录（biliup 的 list 对应 api 已经失效，因此我写了 [bilitool](https://github.com/timerring/bilitool) 工具作为替换）。
 
@@ -180,17 +180,14 @@ pip install -r requirements.txt
 相应的执行日志请在 `logs` 文件夹中查看，如果有问题欢迎在 [`issue`](https://github.com/timerring/bilive/issues/new/choose) 中提出。
 ```
 logs # 日志文件夹
-├── blrecLog # blrec 录制日志
+├── blrec # blrec 录制日志
 │   └── ...
-├── burningLog # 弹幕渲染日志
+├── scan # scan 处理日志
 │   └── ...
-├── mergeLog # 片段合并日志
+├── upload # upload 上传日志
 │   └── ...
-├── scanLog # scan运行日志
-│   └── ...
-├── uploadLog # 视频上传日志
-│   └── ...
-└── blrec.log # record.sh 运行日志
+└── runtime # 每次执行的日志
+    └── ...
 ```
 
 ### Installation(无 GPU 版本)
@@ -220,7 +217,7 @@ sudo docker run \
     -itd \
     --name bilive_docker \
     -p 22333:2233 \
-    timerring/bilive:0.2.9
+    timerring/bilive:0.2.10
 ```
 
 ## 特别感谢
