@@ -16,10 +16,8 @@
 
 > 是否有 GPU 以 `nvidia-smi` 显示 nvidia GPU 驱动以及 `nvcc -V` 显示 `CUDA` 版本号为准。如果未配置显卡驱动或未安装 `CUDA`，即使有 GPU 也无法使用，而会使用 CPU 推理（不推荐，可根据自身硬件条件判断是否尝试 CPU 推理）。
 
-> [!TIP]
-> 如果你是 windows 用户，请不要使用命令提示符（Command Prompt）或 Windows PowerShell，请使用 [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4) 或 WSL 或 **Git Bash**(推荐)。
-> 
-> **注意：PowerShell 和 Windows PowerShell 是[不同的应用程序](https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell?view=powershell-7.4&viewFallbackFrom=powershell-7.3)。**
+> [!NOTE]
+> 如果你是 windows 用户，请使用 WSL 运行本项目。
 
 ### 1. 安装依赖(推荐先 `conda` 创建虚拟环境)
 
@@ -50,7 +48,9 @@ pip install -r requirements.txt
 
 ### 4. biliup-rs 登录
 
-首先按照 [biliup-rs](https://github.com/biliup/biliup-rs) 登录b站，登录脚本在 `src/upload/biliup` ，登录产生的`cookies.json`保留在该文件夹下即可。
+首先按照 [biliup-rs](https://github.com/biliup/biliup-rs) 登录b站，登录脚本在 `src/utils/biliup` ，登录产生的`cookies.json`保留在该文件夹下即可。
+
+然后同样通过 `bilitool login` 扫码登录（biliup 的 list 对应 api 已经失效，因此我写了 [`bilitool`](https://github.com/timerring/bilitool) 工具作为替换）。
 
 [常见问题收集](./biliup)
 
@@ -90,17 +90,14 @@ pip install -r requirements.txt
 相应的执行日志请在 `logs` 文件夹中查看，如果有问题欢迎在 [`issue`](https://github.com/timerring/bilive/issues/new/choose) 中提出。
 ```
 logs # 日志文件夹
-├── blrecLog # blrec 录制日志
+├── blrec # blrec 录制日志
 │   └── ...
-├── burningLog # 弹幕渲染日志
+├── scan # scan 处理日志
 │   └── ...
-├── mergeLog # 片段合并日志
+├── upload # upload 上传日志
 │   └── ...
-├── scanLog # scan运行日志
-│   └── ...
-├── uploadLog # 视频上传日志
-│   └── ...
-└── blrec.log # record.sh 运行日志
+└── runtime # 每次执行的日志
+    └── ...
 ```
 
 
@@ -109,3 +106,20 @@ logs # 日志文件夹
 
 1. 请将 `src/config.py` 文件中的 `GPU_EXIST` 参数设置为 `False`。（若不置为 `False` 且则会使用 CPU 推理，不推荐，可自行根据硬件条件进行尝试。）
 2. 将 `MODEL_TYPE` 调整为 `merge` 或者 `append`。
+
+## Docker 运行
+
+也可以直接拉取 docker 镜像运行，默认 latest。守护进程是 upload，而 record 以及 scan 需要在配置后手动启动，相关配置以及启动流程从 3.2 开始即可，此版本 docker 镜像无 GPU 配置。
+
+> [!IMPORTANT]
+> 如果不需要使用可视化页面可以忽略以下提醒：
+> - 不推荐在有公网 ip 的服务器上直接暴露 22333 端口访问管理页面，如果使用请自行限制端口入站 ip 规则或者采用 nginx 等反向代理配置密钥限制他人访问。
+> - 管理页面主要针对 record 模块，只有手动运行 record 后(步骤5)才能访问到管理页面。
+
+```bash
+sudo docker run \
+    -itd \
+    --name bilive_docker \
+    -p 22333:2233 \
+    timerring/bilive:0.2.10
+```

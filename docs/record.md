@@ -56,3 +56,30 @@ Traceback (most recent call last):
 
 重启需要等约半分钟，因为它添加房间并且验证启动弹幕服务器需要一点时间，可以尝试关闭该房间录制，再打开。
 
+## 录制的弹幕 xml 以及 jsonl 为空
+
+From [issue 123](https://github.com/timerring/bilive/issues/123)
+
+请填写超过 7 位数的 roomid，84074 是 b 站方便推广的一个短链接，用户跳转是直接映射到真实roomid 去的，真正的 roomid 是申请开播权限时分配的，应该是 7～9 位数字。
+
+**弹幕服务器是无法通过短链接获取弹幕的。因为短链接只起到映射跳转作用**。
+
+解决方法：在移动端分享里面`图片分享`方式分享直播，然后 b 站移动端会自动生成一个带有真正 roomid 的图片。填写该 roomid 即可。
+
+## 添加直播间出错 `aiohttp.client_exceptions.ClientResponseError: 412 `
+
+From [issue 148](https://github.com/timerring/bilive/issues/148)
+
+```
+aiohttp.client_exceptions.ClientResponseError: 412, message='Precondition Failed',
+```
+
+录制部分我采用的是 [blrec](https://github.com/acgnhiki/blrec)，根据 [相应的issue](https://github.com/acgnhiki/blrec/pull/264) 情况疑似被风控了。这是请求的[B站 api 报错 412 情况](https://github.com/SocialSisterYi/bilibili-API-collect/issues/872)。
+
+解决方法：我建议添加或者更换 UA，还可以考虑添加 cookies，等待几分钟执行 `./record.sh` 重试。或者用 docker 单独部署 blrec 也可以。
+
+## `http://localhost:2233/settings` 网页无法访问
+
+管理页面主要针对 record 模块，而 docker run 时默认守护进程是 upload，并且只是映射了端口，实际 2233 端口没有程序在运行，因为 record 进程并没有启动。
+
+解决方法：进入 docker 后手动运行 record (步骤5)后访问管理页面。
