@@ -116,10 +116,38 @@ logs # 日志文件夹
 > - 不推荐在有公网 ip 的服务器上直接暴露 22333 端口访问管理页面，如果使用请自行限制端口入站 ip 规则或者采用 nginx 等反向代理配置密钥限制他人访问。
 > - 管理页面主要针对 record 模块，只有手动运行 record 后(步骤5)才能访问到管理页面。
 
+### Docker
 ```bash
 sudo docker run \
     -itd \
     --name bilive_docker \
     -p 22333:2233 \
     timerring/bilive:0.2.10
+```
+
+### Docker Compose
+
+#### 使用镜像
+
+默认 CPU latest version，如需使用 GPU 版本，请将 `image: ghcr.io/timerring/bilive:latest` 修改为 `image: ghcr.io/timerring/bilive-gpu:latest`。
+```bash
+docker compose up -d
+```
+
+#### 自行构建
+
+相关配置已经写好，请自行将 `compose.yml` 3-6 行替换为：
+
+```yaml
+    build:
+        context: .
+        dockerfile: Dockerfile # Dockerfile-GPU
+    # image: ghcr.io/timerring/bilive:latest # ghcr.io/timerring/bilive-gpu:latest
+```
+
+然后执行以下命令：
+
+```bash
+docker build
+docker compose up -d
 ```
