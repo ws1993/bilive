@@ -104,6 +104,20 @@ graph TD
 > [!TIP]
 > 如果你是 windows 用户，请使用 WSL 运行本项目。
 
+#### 0. clone 项目
+
+由于项目引入了我写的两个 submodule [DanmakuConvert](https://github.com/timerring/DanmakuConvert) 和 [auto-slice-video](https://github.com/timerring/auto-slice-video)，因此推荐 clone 项目时就更新 submodules。
+
+```bash
+git clone --recurse-submodules https://github.com/timerring/bilive.git
+```
+
+如果你没有采用上述方式 clone 项目，请更新 submodules：
+
+```bash
+git submodule update --init --recursive
+```
+
 #### 1. 安装依赖(推荐先 `conda` 创建虚拟环境)
 
 ```
