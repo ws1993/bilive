@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 from datetime import datetime
 import configparser
+from db.conn import create_table
 
 # ============================ Your configuration ============================
 GPU_EXIST=True
@@ -32,6 +33,16 @@ SRC_DIR = str(Path(os.path.abspath(__file__)).parent)
 BILIVE_DIR = str(Path(SRC_DIR).parent)
 LOG_DIR = os.path.join(BILIVE_DIR, 'logs')
 VIDEOS_DIR = os.path.join(BILIVE_DIR, 'Videos')
+
+
+if not os.path.exists(SRC_DIR + '/db/data.db'):
+    print("初始化数据库")
+    create_table()
+
+if not os.path.exists(VIDEOS_DIR):
+    os.makedirs(VIDEOS_DIR)
+if not os.path.exists(VIDEOS_DIR + '/upload_conf'):
+    os.makedirs(VIDEOS_DIR + '/upload_conf')
 
 def get_model_path():
     SRC_DIR = str(Path(os.path.abspath(__file__)).parent)
