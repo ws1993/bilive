@@ -36,6 +36,7 @@
 - **( :tada: NEW)自动渲染字幕**(如需使用本功能，则需保证有 Nvidia 显卡)：采用 OpenAI 的开源模型 [`whisper`](https://github.com/openai/whisper)，自动识别视频内语音并转换为字幕渲染至视频中。
 - **( :tada: NEW)自动切片上传**：根据弹幕密度计算寻找高能片段并切片，该自动切片工具库已开源 [auto-slice-video](https://github.com/timerring/auto-slice-video)
  ，结合多模态视频理解大模型 [`GLM-4V-PLUS`](https://bigmodel.cn/dev/api/normal-model/glm-4) 自动生成有意思的切片标题及内容，并且自动上传。
+- **( :tada: NEW)持久化登录/下载/上传视频(支持多p投稿)**：[bilitool](https://github.com/timerring/bilitool)已经开源，实现持久化登录，下载视频及弹幕(含多p)/上传视频(可分p投稿)，查询投稿状态，查询详细信息等功能，一键pip安装，可以使用命令行 cli 操作，也可以作为api调用。
 - **( :tada: NEW)自动多平台循环直播推流**：该工具已经开源 [looplive](https://github.com/timerring/looplive) 是一个 7 x 24 小时全自动**循环多平台同时推流**直播工具。
 
 项目架构流程如下：
@@ -152,11 +153,9 @@ pip install -r requirements.txt
 
 在配置文件 `src/config.py` 中，`SLICE_DURATION` 以秒为单位设置切片时长（不建议超过 1 分钟），在项目的自动切片功能需要使用到智谱的 [`GLM-4V-PLUS`](https://bigmodel.cn/dev/api/normal-model/glm-4) 模型，请自行[注册账号](https://www.bigmodel.cn/invite?icode=shBtZUfNE6FfdMH1R6NybGczbXFgPRGIalpycrEwJ28%3D)并申请 API Key，填写到 `src/config.py` 文件中对应的 `Your_API_KEY` 中。
 
-#### 4. biliup & bilitool 登录
+#### 4. bilitool 登录
 
-首先按照 [biliup-rs](https://github.com/biliup/biliup-rs) 登录b站，登录脚本在 `src/utils/biliup` ，登录产生的`cookies.json`保留在该文件夹下即可。
-
-然后同样通过 `bilitool login` 扫码登录（biliup 的 list 对应 api 已经失效，因此我写了 [bilitool](https://github.com/timerring/bilitool) 工具作为替换）。
+首先按照 [bilitool](https://github.com/timerring/bilitool) 登录b站，通过 `bilitool login` 扫码登录。
 
 [常见问题收集](https://timerring.github.io/bilive/biliup.html)
 
