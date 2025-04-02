@@ -35,7 +35,7 @@
 - **硬件要求极低**：无需GPU，只需最基础的单核CPU搭配最低的运存即可完成录制，弹幕渲染，上传等等全部过程，无最低配置要求，10年前的电脑或服务器依然可以使用！
 - **( :tada: NEW)自动渲染字幕**(如需使用本功能，则需保证有 Nvidia 显卡)：采用 OpenAI 的开源模型 [`whisper`](https://github.com/openai/whisper)，自动识别视频内语音并转换为字幕渲染至视频中。
 - **( :tada: NEW)自动切片上传**：根据弹幕密度计算寻找高能片段并切片，该自动切片工具库已开源 [auto-slice-video](https://github.com/timerring/auto-slice-video)
- ，结合多模态视频理解大模型 [`GLM-4V-PLUS`](https://bigmodel.cn/dev/api/normal-model/glm-4) 自动生成有意思的切片标题及内容，并且自动上传。
+ ，结合多模态视频理解大模型 [`GLM-4V-PLUS`](https://bigmodel.cn/dev/api/normal-model/glm-4) 或者 [`Gemini-2.0-flash`](https://deepmind.google/technologies/gemini/flash/) 自动生成有意思的切片标题及内容，并且自动上传。
 - **( :tada: NEW)持久化登录/下载/上传视频(支持多p投稿)**：[bilitool](https://github.com/timerring/bilitool)已经开源，实现持久化登录，下载视频及弹幕(含多p)/上传视频(可分p投稿)，查询投稿状态，查询详细信息等功能，一键pip安装，可以使用命令行 cli 操作，也可以作为api调用。
 - **( :tada: NEW)自动多平台循环直播推流**：该工具已经开源 [looplive](https://github.com/timerring/looplive) 是一个 7 x 24 小时全自动**循环多平台同时推流**直播工具。
 
@@ -137,9 +137,9 @@ pip install -r requirements.txt
 ./setPath.sh && source ~/.bashrc
 ```
 
-#### 3. 配置 whisper 模型及 GLM-4V-PLUS 模型
+#### 3. 配置 whisper 模型及 MLLM 模型
 
-##### 3.1 whisper 模型
+##### 3.1 whisper 模型(字幕识别)
 项目默认采用 [`small`](https://openaipublic.azureedge.net/main/whisper/models/9ecf779972d90ba49c06d968637d720dd632c55bbf19d441fb42bf17a411e794/small.pt) 模型，请点击下载所需文件，并放置在 `src/subtitle/models` 文件夹中。
 
 > [!TIP]
@@ -147,11 +147,26 @@ pip install -r requirements.txt
 > + 更多模型请参考 [whisper 参数模型](https://timerring.github.io/bilive/models.html) 部分。
 > + 更换模型方法请参考 [更换模型方法](https://timerring.github.io/bilive/models.html#更换模型方法) 部分。
 
-##### 3.2 GLM-4V-PLUS 模型
+##### 3.2 MLLM 模型
 
-> 此功能默认关闭，如果需要打开请将 `src/config.py` 文件中的 `AUTO_SLICE` 参数设置为 `True`
+MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关闭，如果需要打开请将 `src/config.py` 文件中的 `AUTO_SLICE` 参数设置为 `True`。其他配置分别有：
+- `SLICE_DURATION` 以秒为单位设置切片时长（不建议超过 60 秒）。
+- `SLICE_NUM` 设置切片数量。
+- `SLICE_OVERLAP` 设置切片重叠时长。切片采用滑动窗口法处理，细节内容请见 [auto-slice-video](https://github.com/timerring/auto-slice-video)
+- `SLICE_STEP` 设置切片步长。
+- `MIN_VIDEO_SIZE` 设置切片最小视频大小。防止对一些连线或者网络波动原因造成的短片段再切片。
 
-在配置文件 `src/config.py` 中，`SLICE_DURATION` 以秒为单位设置切片时长（不建议超过 1 分钟），在项目的自动切片功能需要使用到智谱的 [`GLM-4V-PLUS`](https://bigmodel.cn/dev/api/normal-model/glm-4) 模型，请自行[注册账号](https://www.bigmodel.cn/invite?icode=shBtZUfNE6FfdMH1R6NybGczbXFgPRGIalpycrEwJ28%3D)并申请 API Key，填写到 `src/config.py` 文件中对应的 `Your_API_KEY` 中。
+##### 3.2.1 GLM-4V-PLUS 模型
+
+> 如需使用 GLM-4V-PLUS 模型，请将 `src/config.py` 文件中的 `MLLM_MODEL` 参数设置为 `zhipu`
+
+在项目的自动切片功能需要使用到智谱的 [`GLM-4V-PLUS`](https://bigmodel.cn/dev/api/normal-model/glm-4) 模型，请自行[注册账号](https://www.bigmodel.cn/invite?icode=shBtZUfNE6FfdMH1R6NybGczbXFgPRGIalpycrEwJ28%3D)并申请 API Key，填写到 `src/config.py` 文件中对应的 `ZHIPU_API_KEY` 中。
+
+##### 3.2.2 Gemini 模型
+
+> 如需使用 Gemini-2.0-flash 模型，请将 `src/config.py` 文件中的 `MLLM_MODEL` 参数设置为 `gemini`
+
+在项目的自动切片功能需要使用到 Gemini-2.0-flash 模型，请自行[注册账号](https://aistudio.google.com/app/apikey)并申请 API Key，填写到 `src/config.py` 文件中对应的 `GEMINI_API_KEY` 中。
 
 #### 4. bilitool 登录
 
