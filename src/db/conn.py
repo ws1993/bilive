@@ -97,6 +97,13 @@ def get_all_reserve_for_fixing_queue():
     db.close()
     return result
 
+def delete_all_queue():
+    db = connect()
+    cursor = db.cursor()
+    cursor.execute("delete from upload_queue;")
+    db.commit()
+    db.close()
+
 if __name__ == "__main__":
     # Create Table
     # create_table()
@@ -113,4 +120,6 @@ if __name__ == "__main__":
     # Delete the upload queue
     # delete_upload_queue('')
     # Get the single upload queue after delete, should be None
-    print(get_single_upload_queue())
+    # print(get_single_upload_queue())
+    # Delete all queue
+    delete_all_queue()
