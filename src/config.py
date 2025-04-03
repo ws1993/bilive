@@ -4,14 +4,17 @@ import os
 from pathlib import Path
 from datetime import datetime
 import configparser
+import torch
 from db.conn import create_table
 
 # ============================ Your configuration ============================
-GPU_EXIST=True
 # Can be pipeline, append, merge
 MODEL_TYPE = "append"
 
 # =============== The auto speech recognition configuration ============================
+# WARNING!: If you choose "deploy" local inference:
+# 1. Please check the VRAM requirements twice!
+# 2. Please make sure you have installed the Nvidia GPU driver and can check the cuda via `nvcc -V`!
 ASR_METHOD = "none" # can be "deploy" or "api" or "none"
 # If you choose "api", due to the limitation of free tier, you should keep every video less than 30 minutes(around)
 # Apply for your own API key at https://console.groq.com/keys
@@ -46,6 +49,7 @@ GEMINI_API_KEY = ""
 # Apply for your own Qwen API key at https://bailian.console.aliyun.com/?apiKey=1
 QWEN_API_KEY = ""
 # ============================ Basic configuration ============================
+GPU_EXIST = torch.cuda.is_available()
 SRC_DIR = str(Path(os.path.abspath(__file__)).parent)
 BILIVE_DIR = str(Path(SRC_DIR).parent)
 LOG_DIR = os.path.join(BILIVE_DIR, 'logs')

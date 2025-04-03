@@ -3,7 +3,7 @@
 import argparse
 import os
 import subprocess
-from src.config import GPU_EXIST, SRC_DIR, MODEL_TYPE, AUTO_SLICE, SLICE_DURATION, MIN_VIDEO_SIZE, VIDEOS_DIR , SLICE_NUM, SLICE_OVERLAP, SLICE_STEP
+from src.config import SRC_DIR, MODEL_TYPE, AUTO_SLICE, SLICE_DURATION, MIN_VIDEO_SIZE, VIDEOS_DIR , SLICE_NUM, SLICE_OVERLAP, SLICE_STEP
 from src.danmaku.generate_danmakus import get_resolution, process_danmakus
 from src.subtitle.subtitle_generator import generate_subtitle
 from src.burn.render_command import render_command

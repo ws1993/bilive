@@ -3,7 +3,7 @@
 import argparse
 import os
 import subprocess
-from src.config import GPU_EXIST, SRC_DIR, VIDEOS_DIR
+from src.config import SRC_DIR, VIDEOS_DIR
 from src.danmaku.generate_danmakus import get_resolution, process_danmakus
 from src.subtitle.subtitle_generator import generate_subtitle
 from src.burn.render_command import render_command
