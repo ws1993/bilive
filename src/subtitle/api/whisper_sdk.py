@@ -37,6 +37,7 @@ def print_segment_info(segments):
 
 
 def check_file_format(filename):
+    filename = str(filename)
     if filename[-4:] != ".mp3":
         mp3filename = filename[:-4] + ".mp3"
         command = [
