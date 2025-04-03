@@ -188,7 +188,7 @@ MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关
 
 #### 4. bilitool 登录
 
-> 由于一般日志打印不出二维码效果（docker 的日志不确定是否能打印，等发布新image时再修改，docker 版本请先参考文档[bilive](https://bilive.timerring.com)，本 README 只针对源码部署），所以这步需要提前在机器上安装 [bilitool](https://github.com/timerring/bilitool):
+> 由于一般日志打印不出二维码效果（docker 的日志不确定是否能打印，等发布新image时再修改，docker 版本请先参考文档 [bilive](https://bilive.timerring.com)，本 README 只针对源码部署），所以这步需要提前在机器上安装 [bilitool](https://github.com/timerring/bilitool):
 
 ```
 pip install bilitool
