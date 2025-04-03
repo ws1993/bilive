@@ -34,7 +34,7 @@
 - **检测片段并合并**：对于网络问题或者直播连线导致的视频流分段，能够自动检测合并成为完整视频。
 - **自动渲染弹幕**：自动转换xml为ass弹幕文件，该转换工具库已经开源 [DanmakuConvert](https://github.com/timerring/DanmakuConvert) 并且渲染到视频中形成**有弹幕版视频**并自动上传。
 - **硬件要求极低**：无需GPU，只需最基础的单核CPU搭配最低的运存即可完成录制，弹幕渲染，上传等等全部过程，无最低配置要求，10年前的电脑或服务器依然可以使用！
-- **( :tada: NEW)自动渲染字幕**(如需使用本功能，则需保证有 Nvidia 显卡)：采用 OpenAI 的开源模型 [`whisper`](https://github.com/openai/whisper)，自动识别视频内语音并转换为字幕渲染至视频中。
+- **( :tada: NEW)自动渲染字幕**：采用 OpenAI 的开源模型 `whisper`，自动识别视频内语音并转换为字幕渲染至视频中。
 - **( :tada: NEW)自动切片上传**：根据弹幕密度计算寻找高能片段并切片，该自动切片工具库已开源 [auto-slice-video](https://github.com/timerring/auto-slice-video)，结合多模态视频理解大模型自动生成有意思的切片标题及内容，并且自动上传，目前已经支持的模型有：
   - `GLM-4V-PLUS`
   - `Gemini-2.0-flash`
@@ -100,16 +100,14 @@ graph TD
 > [!IMPORTANT]
 > 凡是用到 GPU 均需保证 GPU 显存大于运行程序所需 VRAM，具体计算 VRAM 方法可以参考[该部分](https://timerring.github.io/bilive/models.html#计算-vram-需求)。
 
-### Installation(有 GPU 版本)
-
-> 是否有 GPU 以 `nvidia-smi` 显示 nvidia GPU 驱动以及 `nvcc -V` 显示 `CUDA` 版本号为准。如果未配置显卡驱动或未安装 `CUDA`，即使有 GPU 也无法使用，而会使用 CPU 推理（不推荐，可根据自身硬件条件判断是否尝试 CPU 推理）。
+### Installation
 
 > [!TIP]
 > 如果你是 windows 用户，请使用 WSL 运行本项目。
 
 #### 0. clone 项目
 
-由于项目引入了我写的两个 submodule [DanmakuConvert](https://github.com/timerring/DanmakuConvert) 和 [auto-slice-video](https://github.com/timerring/auto-slice-video)，因此推荐 clone 项目时就更新 submodules。
+由于项目引入了我写的 submodule [DanmakuConvert](https://github.com/timerring/DanmakuConvert)，[bilitool](https://github.com/timerring/bilitool) 和 [auto-slice-video](https://github.com/timerring/auto-slice-video)，因此推荐 clone 项目时就更新 submodules。
 
 ```bash
 git clone --recurse-submodules https://github.com/timerring/bilive.git
@@ -121,7 +119,7 @@ git clone --recurse-submodules https://github.com/timerring/bilive.git
 git submodule update --init --recursive
 ```
 
-#### 1. 安装依赖(推荐先 `conda` 创建虚拟环境)
+#### 1. 安装依赖(推荐创建虚拟环境)
 
 ```
 cd bilive
@@ -148,14 +146,15 @@ pip install -r requirements.txt
 
 将 `src/config.py` 文件中的 `ASR_METHOD` 参数设置为 `api`，然后填写 `WHISPER_API_KEY` 参数为你的 [API Key](https://console.groq.com/keys)。本项目采用 groq 提供 free tier 的 `whisper-large-v3-turbo` 模型，上传限制为 40 MB（约半小时），因此如需采用 api 识别的方式，请将视频录制分段调整为 30 分钟。此外，free tier 请求限制为 7200秒/20次/小时，28800秒/2000次/天。如果有更多需求，也欢迎升级到 dev tier，更多信息见[groq 官网](https://console.groq.com/docs/rate-limits)。
 
-##### 3.1.2 采用本地部署方式
+##### 3.1.2 采用本地部署方式(需保证有 NVIDIA 显卡)
 
 将 `src/config.py` 文件中的 `ASR_METHOD` 参数设置为 `deploy`，然后下载所需模型文件，并放置在 `src/subtitle/models` 文件夹中。
 
 项目默认采用 [`small`](https://openaipublic.azureedge.net/main/whisper/models/9ecf779972d90ba49c06d968637d720dd632c55bbf19d441fb42bf17a411e794/small.pt) 模型，请点击下载所需文件，并放置在 `src/subtitle/models` 文件夹中。
 
 > [!TIP]
-> 使用该参数模型至少需要保证有显存大于 2.7GB 的 GPU，否则请使用其他参数量的模型。
+> + 请保证 NVIDIA 显卡驱动安装正确 `nvidia-smi` `nvcc -V`，并能够调用 CUDA 核心 `print(torch.cuda.is_available())` 返回 `True`。如果未配置显卡驱动或未安装 `CUDA`，即使有 GPU 也无法使用，而会使用 CPU 推理，非常消耗 CPU 计算资源，不推荐，如果 CPU 硬件条件好可以尝试。
+> + 使用该参数模型至少需要保证有显存大于 2.7GB 的 GPU，否则请使用其他参数量的模型。
 > + 更多模型请参考 [whisper 参数模型](https://timerring.github.io/bilive/models.html) 部分。
 > + 更换模型方法请参考 [更换模型方法](https://timerring.github.io/bilive/models.html#更换模型方法) 部分。
 
@@ -246,18 +245,15 @@ logs # 日志文件夹
 └── runtime # 每次执行的日志
     └── ...
 ```
-
-### Installation(无 GPU 版本)
-无 GPU 版本过程基本同上，可以跳过步骤 3 配置 whisper 的部分，需要注意在执行步骤 5 **之前**完成以下设置将确保完全用 CPU 渲染视频弹幕。
-
-1. 请将 `src/config.py` 文件中的 `GPU_EXIST` 参数设置为 `False`。（若置为 `True` 但又没有 GPU 或者 Nvidia 驱动找不到，则会使用 CPU 推理，非常消耗 CPU 计算资源，不推荐，可自行根据硬件条件进行尝试。）
-2. 将 `MODEL_TYPE` 调整为 `merge` 或者 `append`。
+#### 8. 配置上传参数
 
 > [!TIP]
 > 上传默认参数如下，[]中内容全部自动替换。可以在 `src/config.py` 中自定义相关配置，映射关键词为 `{artist}`、`{date}`、`{title}`、`{source_link}`，可自行组合删减定制模板：
 > + 标题模板是`{artist}直播回放-{date}-{title}`，效果为"【弹幕+字幕】[XXX]直播回放-[日期]-[直播间标题]"，可自行修改。
 > + 简介模板是`{artist}直播，直播间地址：{source_link} 内容仅供娱乐，直播中主播的言论、观点和行为均由主播本人负责，不代表录播员的观点或立场。`，效果为"【弹幕+字幕】[XXX]直播，直播间地址：[https://live.bilibili.com/XXX] 内容仅供娱乐，直播中主播的言论、观点和行为均由主播本人负责，不代表录播员的观点或立场。"，可自行修改。
-> + 默认标签是根据主播名字自动在 b 站搜索推荐中抓取的[热搜词]，详见[bilibili-API-collect](https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/search/suggest.md)。
+> + 默认标签是根据主播名字自动在 b 站搜索推荐中抓取的热搜词。
+> + `GIFT_PRICE_FILTER = 1` 表示过滤价格低于 1 元的礼物。
+> + `RESERVE_FOR_FIXING = False` 表示如果视频出现错误，重试失败后不保留视频用于修复，推荐硬盘空间有限的用户设置 False。
 
 ### Docker 运行
 

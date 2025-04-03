@@ -18,6 +18,7 @@ def subtitle_generator(asr_method):
         def wrapper(video_path):
             if asr_method == "api":
                 from .api.whisper_sdk import generate_srt
+                scan_log.info(f"Generate subtitles via whisper api")
                 return generate_srt(video_path)
             elif asr_method == "deploy":
                 try:
@@ -25,6 +26,7 @@ def subtitle_generator(asr_method):
                         ['python', os.path.join(SRC_DIR, 'subtitle', 'generate.py'), video_path],
                         stdout=subprocess.DEVNULL
                     )
+                    scan_log.info(f"Generate subtitles via whisper deploy")
                     return video_path[:-4] + ".srt"
                 except subprocess.CalledProcessError as e:
                     scan_log.error(f"Generate subtitles failed: {e.stderr}")

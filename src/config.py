@@ -15,8 +15,10 @@ MODEL_TYPE = "append"
 # WARNING!: If you choose "deploy" local inference:
 # 1. Please check the VRAM requirements twice!
 # 2. Please make sure you have installed the Nvidia GPU driver and can check the cuda via `nvcc -V`!
+# WARNING!: If you choose "api":
+# due to the limitation of free tier, you should keep every video less than 30 minutes(around)
+# which means your MODEL_TYPE should not be "merge".
 ASR_METHOD = "none" # can be "deploy" or "api" or "none"
-# If you choose "api", due to the limitation of free tier, you should keep every video less than 30 minutes(around)
 # Apply for your own API key at https://console.groq.com/keys
 WHISPER_API_KEY = ""
 # If you choose "deploy", you should download the model from https://huggingface.co/openai/whisper-large-v3-turbo
