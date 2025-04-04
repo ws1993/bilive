@@ -1,5 +1,5 @@
 blrec==2.0.0b4
-fontTools==4.55.3
+ffmpeg_python==0.2.0
 librosa==0.9.1
 more_itertools==10.6.0
 numba==0.55.1
@@ -10,7 +10,10 @@ tiktoken==0.4.0
 torch==1.11.0
 triton==3.1.0
 zhconv==1.4.3
-bilitool==0.1.2
+PyYAML>=6.0.2
+qrcode>=8.0
+tqdm>=4.67.1
+Requests>=2.32.3
 google-generativeai>=0.7.2 # don't change this part
 zhipuai
 openai
