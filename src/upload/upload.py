@@ -3,7 +3,7 @@
 import subprocess
 import os
 import sys
-from src.config import SRC_DIR, BILIVE_DIR, RESERVE_FOR_FIXING
+from src.config import SRC_DIR, BILIVE_DIR, RESERVE_FOR_FIXING, UPLOAD_LINE
 from datetime import datetime
 from src.upload.generate_upload_data import generate_video_data, generate_slice_data
 from src.upload.extract_video_info import generate_title
@@ -28,7 +28,7 @@ def upload_video(upload_path):
         else:
             copyright, title, desc, tid, tag, source, cover, dynamic = generate_video_data(upload_path)
             yaml = ""
-        result = UploadController().upload_video_entry(upload_path, yaml, copyright, tid, title, desc, tag, source, cover, dynamic)
+        result = UploadController().upload_video_entry(upload_path, yaml, copyright, tid, title, desc, tag, source, cover, dynamic, cdn=UPLOAD_LINE)
         if result == True:
             upload_log.info("Upload successfully, then delete the video")
             os.remove(upload_path)
@@ -45,7 +45,7 @@ def upload_video(upload_path):
 
 def append_upload(upload_path, bv_result):
     try:
-        result = UploadController().append_video_entry(upload_path, bv_result)
+        result = UploadController().append_video_entry(upload_path, bv_result, cdn=UPLOAD_LINE)
         # Check if the command was successful
         if result == True:
             upload_log.info("Upload successfully, then delete the video")

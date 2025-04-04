@@ -33,6 +33,7 @@ DESC = "{artist}直播回放，直播间地址：{source_link} 内容仅供娱�
 # You can change the description as you like.
 GIFT_PRICE_FILTER = 1 # The gift whose price is less than this value will be filtered, unit: RMB
 RESERVE_FOR_FIXING = False # If encounter MOOV crash error, delete the video or reserve for fixing
+UPLOAD_LINE = None # The upload line to be used, default None is auto detect(recommended), if you want to specify, it can be "bldsa", "ws", "tx", "qn", "bda2".
 
 # ============================ The video slice configuration ==================
 AUTO_SLICE = False
