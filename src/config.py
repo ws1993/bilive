@@ -6,7 +6,6 @@ from datetime import datetime
 import configparser
 import torch
 import toml
-import src.log.logger as scan_log
 from db.conn import create_table
 
 def load_config_from_toml(file_path):
@@ -18,11 +17,11 @@ def load_config_from_toml(file_path):
             config = toml.load(file)
             return config
     except FileNotFoundError:
-        scan_log.error(f"cannot find {file_path}")
+        print(f"cannot find {file_path}", flush=True)
     except toml.TomlDecodeError as e:
-        scan_log.error(f"cannot parse {file_path} as a valid toml file, error: {e}")
+        print(f"cannot parse {file_path} as a valid toml file, error: {e}", flush=True)
     except Exception as e:
-        scan_log.error(f"unknown error when loading config file, error: {e}")
+        print(f"unknown error when loading config file, error: {e}", flush=True)
     return None
 
 def get_model_path():
@@ -43,12 +42,12 @@ BILIVE_DIR = str(Path(SRC_DIR).parent)
 LOG_DIR = os.path.join(BILIVE_DIR, 'logs')
 VIDEOS_DIR = os.path.join(BILIVE_DIR, 'Videos')
 if not os.path.exists(SRC_DIR + '/db/data.db'):
-    scan_log.info("Initialize the database")
+    print("Initialize the database", flush=True)
     create_table()
 
 config = load_config_from_toml(os.path.join(BILIVE_DIR, 'settings.toml'))
 if config is None:
-    scan_log.error("failed to load config file, please check twice")
+    print("failed to load config file, please check twice", flush=True)
     exit(1)
 
 GPU_EXIST = torch.cuda.is_available()
