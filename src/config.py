@@ -45,7 +45,7 @@ if not os.path.exists(SRC_DIR + '/db/data.db'):
     print("Initialize the database", flush=True)
     create_table()
 
-config = load_config_from_toml(os.path.join(BILIVE_DIR, 'settings.toml'))
+config = load_config_from_toml(os.path.join(BILIVE_DIR, 'bilive.toml'))
 if config is None:
     print("failed to load config file, please check twice", flush=True)
     exit(1)
