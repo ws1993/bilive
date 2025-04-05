@@ -19,3 +19,4 @@ google-generativeai>=0.7.2 # don't change this part
 zhipuai
 openai
 toml
+groq
