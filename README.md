@@ -97,7 +97,7 @@ graph TD
 > 如果你是 windows 用户，请使用 WSL 运行本项目。
 
 ### Mode
-首先介绍本项目三种不同的处理模式：
+首先介绍本项目三种不同的处理模式：(以下特指 asr_method="deploy" 的情况，如填"none"或者"api"则不涉及 GPU, 可以忽略对 GPU 的描述)
 1. `pipeline` 模式(默认): 目前最快的模式，需要 GPU 支持，最好在 `blrec` 设置片段为半小时以内，asr 识别和渲染并行执行，分 p 上传视频片段。
 ![](https://cdn.jsdelivr.net/gh/timerring/scratchpad2023/2024/2024-12-11-17-33-15.png)
 2. `append` 模式: 基本同上，但 asr 识别与渲染过程串行执行，比 pipeline 慢预计 25% 左右，对 GPU 显存要求较低，兼顾硬件性能与处理上传效率。
