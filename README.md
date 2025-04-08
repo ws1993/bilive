@@ -97,6 +97,7 @@ graph TD
 
 ## 3. 测试硬件
 + OS: Ubuntu 22.04.4 LTS
++ 架构: x64
 + CPU：2核 Intel(R) Xeon(R) Platinum 85
 + GPU：无
 + 内存：2G
@@ -104,6 +105,16 @@ graph TD
 + 带宽: 3Mbps
 + Python 版本: 3.10
   > 个人经验：若想尽可能快地更新视频，主要取决于上传速度而非弹幕渲染速度，因此建议网络带宽越大越好。
+
++ OS: debian 6.1.0-32
++ 架构: aarch64
++ CPU: 1核 Neoverse-N1
++ GPU: 无
++ 内存: 4G
++ 硬盘: 30G
++ 带宽: 100Mbps
++ Python 版本: 3.10
+
 
 ## 4. Quick start
 
@@ -272,7 +283,7 @@ python -m bilitool.cli login
 
 #### 6. 启动自动录制
 
-默认密码为 `bilive`, 如果要将录制页面向公网开放，请务必在 `record.sh` 的 `--api-key` 后重新设置密码！如需使用 https，可以考虑 openssl 自签名证书并添加参数 `--key-file path/to/key-file --cert-file path/to/cert-file`。
+默认密码为 `bilive2233`, 如果要将录制页面向公网开放，请务必在 `record.sh` 的 `--api-key` 后重新设置密码！如需使用 https，可以考虑 openssl 自签名证书并添加参数 `--key-file path/to/key-file --cert-file path/to/cert-file`。
 
 ```bash
 ./record.sh
