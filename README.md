@@ -96,25 +96,19 @@ graph TD
 
 
 ## 3. 测试硬件
-+ OS: Ubuntu 22.04.4 LTS
-+ 架构: x64
-+ CPU：2核 Intel(R) Xeon(R) Platinum 85
-+ GPU：无
-+ 内存：2G
-+ 硬盘：40G
-+ 带宽: 3Mbps
-+ Python 版本: 3.10
-  > 个人经验：若想尽可能快地更新视频，主要取决于上传速度而非弹幕渲染速度，因此建议网络带宽越大越好。
 
-+ OS: debian 6.1.0-32
-+ 架构: aarch64
-+ CPU: 1核 Neoverse-N1
-+ GPU: 无
-+ 内存: 4G
-+ 硬盘: 30G
-+ 带宽: 100Mbps
-+ Python 版本: 3.10
+| Machine | Alicloud | Oracle Cloud | local server |
+|--------|---------|---------|---------|
+| OS | Ubuntu 22.04.4 LTS | debian 6.1.0 | Ubuntu 22.04.4 LTS |
+| Architecture | x64 | aarch64 | x64 |
+| CPU | 2-core Intel(R) Xeon(R) Platinum 85 | 1-core Neoverse-N1 | Intel(R) Core(TM) i5-9300H CPU |
+| GPU | None | None | Nvidia GeForce GTX 1650 |
+| Memory | 2G | 4G | 24G |
+| Disk | 40G | 30G | 512G |
+| Bandwidth | 3Mbps | 100Mbps | 100Mbps |
+| Python Version | 3.10 | 3.10 | 3.10 |
 
+> 个人经验：若想尽可能快地更新视频，主要取决于上传速度而非弹幕渲染速度，因此建议网络带宽越大越好。
 
 ## 4. Quick start
 
