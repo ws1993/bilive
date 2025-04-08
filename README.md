@@ -238,7 +238,7 @@ MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关
 > [!IMPORTANT]
 > 请不要修改任何有关路径的任何配置，否则会导致上传模块不可用
 
-> 录制的 blrec 参数配置在 `settings.toml` 文件，也可以直接在录制启动后在对应的端口可视化页面配置。Quick start 只介绍关键配置，其他配置可自行在页面中对照配置项理解，支持热修改。
+> 录制模块采用第三方 package `blrec`，参数配置在 `settings.toml` 文件，也可以直接在录制启动后在对应的端口可视化页面配置。Quick start 只介绍关键配置，其他配置可自行在页面中对照配置项理解，支持热修改。
 
 - 房间的添加按照文件中 `[[tasks]]` 对应的格式即可。
 - 录制模块不登录状态下默认的录制质量为超清。如果需要登录，请将 cookie.json 文件（获取方式见步骤 5）中的 `SESSDATA` 参数值填写到 `[header]` 的 cookie 部分，形式`cookie = "SESSDATA=XXXXXXXXXXX"`，登录后即可录制更高质量画质。(推荐不登录)
@@ -271,6 +271,8 @@ python -m bilitool.cli login
 [常见问题收集](https://timerring.github.io/bilive/biliup.html)
 
 #### 6. 启动自动录制
+
+默认密码为 `bilive`, 如果要将录制页面向公网开放，请务必在 `record.sh` 的 `--api-key` 后重新设置密码！如需使用 https，可以考虑 openssl 自签名证书并添加参数 `--key-file path/to/key-file --cert-file path/to/cert-file`。
 
 ```bash
 ./record.sh
