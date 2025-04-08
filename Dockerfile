@@ -18,7 +18,6 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-ENV BILIVE_PATH=/app
 ENV TZ="Asia/Shanghai"
 
 EXPOSE 2233
