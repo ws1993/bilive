@@ -6,7 +6,7 @@ from PIL import Image
 from io import BytesIO
 import time
 from src.upload.bilitool.bilitool.model.model import Model
-from src.config import BAIDU_API_KEY
+from src.config import BAIDU_API_KEY, COVER_PROMPT
 
 
 def cover_up(img: str):
@@ -72,7 +72,7 @@ def baidu_generate_cover(your_file_path):
         payload = json.dumps(
             {
                 "model": "irag-1.0",
-                "prompt": "这是视频截图，请根据该图生成对应的动漫类型的封面",
+                "prompt": COVER_PROMPT,
                 "refer_image": cover_url,
             }
         )

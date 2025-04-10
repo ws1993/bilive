@@ -2,7 +2,7 @@ import requests
 import json
 import os
 import time
-from src.config import IDEOGRAM_API_KEY
+from src.config import IDEOGRAM_API_KEY, COVER_PROMPT
 
 
 def ideogram_generate_cover(your_file_path):
@@ -19,7 +19,7 @@ def ideogram_generate_cover(your_file_path):
         payload = {
             "image_request": json.dumps(
                 {
-                    "prompt": "This is a video screenshot, please generate a cover in the style of a manga",
+                    "prompt": COVER_PROMPT,
                     "aspect_ratio": "ASPECT_10_16",
                     "image_weight": 75,
                     "magic_prompt_option": "ON",

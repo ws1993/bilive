@@ -12,7 +12,7 @@ from PIL import Image
 from botocore.exceptions import ClientError
 import os
 import time
-from src.config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+from src.config import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, COVER_PROMPT
 
 class ImageError(Exception):
     "Custom exception for errors returned by Amazon Titan Image Generator V2"
@@ -67,7 +67,7 @@ def amazon_generate_cover(your_file_path):
         body = json.dumps({
             "taskType": "TEXT_IMAGE",
             "textToImageParams": {
-                "text": "This is a video screenshot, please generate a cover in the style of a manga",
+                "text": COVER_PROMPT,
                 "negativeText": "",
                 "conditionImage": input_image,
                 "controlMode": "CANNY_EDGE"

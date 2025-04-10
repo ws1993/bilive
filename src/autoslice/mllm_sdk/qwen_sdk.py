@@ -1,4 +1,4 @@
-from src.config import QWEN_API_KEY
+from src.config import QWEN_API_KEY, SLICE_PROMPT
 from src.log.logger import scan_log
 from openai import OpenAI
 import os
@@ -28,12 +28,12 @@ def qwen_generate_title(video_path, artist):
                         "type": "video_url",
                         "video_url": {"url": f"data:video/mp4;base64,{base64_video}"},
                     },
-                    {"type": "text", "text": f"视频是{artist}的直播切片，请根据该视频中的内容及弹幕信息，为这段视频起一个调皮并且吸引眼球的标题，标题中不要表情符号，可以适当使用网络热词或流行语"},
+                    {"type": "text", "text": SLICE_PROMPT},
                 ],
             }
         ],
     )
     scan_log.info("使用 Qwen-2.5-72B-Instruct 生成切片标题")
-    scan_log.info(f"Prompt: 视频是{artist}的直播切片，请根据该视频中的内容及弹幕信息，为这段视频起一个调皮并且吸引眼球的标题，标题中不要表情符号，可以适当使用网络热词或流行语")
+    scan_log.info(f"Prompt: {SLICE_PROMPT}")
     scan_log.info(f"生成的切片标题为: {completion.choices[0].message.content}")
     return completion.choices[0].message.content.strip('"')

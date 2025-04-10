@@ -3,7 +3,7 @@ import json
 import base64
 import os
 import time
-from src.config import MINIMAX_API_KEY
+from src.config import MINIMAX_API_KEY, COVER_PROMPT
 
 
 def minimax_generate_cover(your_file_path):
@@ -20,7 +20,7 @@ def minimax_generate_cover(your_file_path):
     payload = json.dumps(
         {
             "model": "image-01",
-            "prompt": "这是一个视频截图，请生成其对应的吉普力风格的图片",
+            "prompt": COVER_PROMPT,
             "subject_reference": [
                 {"type": "character", "image_file": f"data:image/jpeg;base64,{data}"}
             ],

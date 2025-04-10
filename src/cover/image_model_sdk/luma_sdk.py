@@ -7,7 +7,7 @@ from PIL import Image
 from io import BytesIO
 from lumaai import LumaAI
 from src.upload.bilitool.bilitool.model.model import Model
-from src.config import LUMA_API_KEY
+from src.config import LUMA_API_KEY, COVER_PROMPT
 
 
 def cover_up(img: str):
@@ -72,7 +72,7 @@ def luma_generate_cover(your_file_path):
             auth_token=LUMA_API_KEY,
         )
         generation = client.generations.image.create(
-            prompt="This is a video screenshot, please generate a cover in the style of a manga",
+            prompt=COVER_PROMPT,
             image_ref=[{"url": cover_url, "weight": 0.85}],
         )
         completed = False

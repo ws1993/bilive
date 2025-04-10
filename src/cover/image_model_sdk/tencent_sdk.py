@@ -8,7 +8,7 @@ import base64
 from datetime import datetime
 import os
 import requests
-from src.config import TENCENT_SECRET_ID, TENCENT_SECRET_KEY
+from src.config import TENCENT_SECRET_ID, TENCENT_SECRET_KEY, COVER_PROMPT
 
 if sys.version_info[0] <= 2:
     from httplib import HTTPSConnection
@@ -125,7 +125,7 @@ def hunyuan_generate_cover(your_file_path):
     submit_action = "SubmitHunyuanImageJob"
     with open(your_file_path, "rb") as image_file:
         data = base64.b64encode(image_file.read()).decode("utf-8")
-    payload = f'{{"Prompt":"这是一个视频截图，请尝试根据该图生成对应的动漫类型的封面","Style":"riman","ContentImage":{{"ImageBase64":"data:image/png;base64,{data}"}}}}'
+    payload = f'{{"Prompt":"{COVER_PROMPT}","Style":"riman","ContentImage":{{"ImageBase64":"data:image/png;base64,{data}"}}}}'
     submit_return = post_request(submit_action, payload).decode("utf-8")
     job_id = json.loads(submit_return)["Response"]["JobId"]
     query_action = "QueryHunyuanImageJob"

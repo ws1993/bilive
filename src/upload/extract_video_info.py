@@ -46,17 +46,15 @@ def generate_title(video_path):
         upload_log.error(f"Error occurred in generate_title: {title}")
         return None
     source_link = generate_source(video_path)
-    prefix = "【弹幕+字幕】"
     formatted_title = TITLE.format(artist=artist, date=date, title=title, source_link=source_link)
-    new_title = f"{prefix}{formatted_title}"
+    new_title = f"{formatted_title}"
     return new_title
 
 def generate_desc(video_path):
     title, artist, date = get_video_info(video_path)
     source_link = generate_source(video_path)
-    prefix = "【弹幕+字幕】"
     formatted_desc = DESC.format(artist=artist, date=date, title=title, source_link=source_link)
-    new_desc = f"{prefix}{formatted_desc}"
+    new_desc = f"{formatted_desc}"
     return new_desc
 
 def generate_tag(video_path):

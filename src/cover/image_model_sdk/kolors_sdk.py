@@ -2,7 +2,7 @@ import requests
 import base64
 import time
 import os
-from src.config import SILICONFLOW_API_KEY
+from src.config import SILICONFLOW_API_KEY, COVER_PROMPT
 
 
 def kolors_generate_cover(your_file_path):
@@ -17,7 +17,7 @@ def kolors_generate_cover(your_file_path):
 
     payload = {
         "model": "Kwai-Kolors/Kolors",
-        "prompt": "这是一个视频截图，请尝试生成对应的日本动漫类型的封面",
+        "prompt": COVER_PROMPT,
         "image_size": "1024x1024",
         "batch_size": 1,
         "num_inference_steps": 20,

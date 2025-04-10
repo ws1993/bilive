@@ -1,5 +1,5 @@
 import requests
-from src.config import STABILITY_API_KEY
+from src.config import STABILITY_API_KEY, COVER_PROMPT
 import time
 import os
 
@@ -24,7 +24,7 @@ def stable_diffusion_generate_cover(your_file_path):
             },
             files={"image": ("image.jpg", img_file, "image/jpeg")},
             data={
-                "prompt": "This is a video screenshot, please generate a cover in the style of a manga",  # English only
+                "prompt": COVER_PROMPT,  # English only
                 "strength": 0.75,
                 "output_format": "jpeg",
                 "mode": "image-to-image",

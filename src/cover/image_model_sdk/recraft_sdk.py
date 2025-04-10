@@ -1,5 +1,5 @@
 from openai import OpenAI
-from src.config import RECRAFT_API_KEY
+from src.config import RECRAFT_API_KEY, COVER_PROMPT
 import requests
 import os
 import time
@@ -20,7 +20,7 @@ def recraft_generate_cover(your_file_path):
                 'image': open(your_file_path, 'rb'),
             },
             body={
-                'prompt': 'This is a video screenshot, please generate a cover in the style of a manga',
+                'prompt': COVER_PROMPT,
                 'strength': 0.75,
             },
         )

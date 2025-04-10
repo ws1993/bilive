@@ -169,7 +169,7 @@ pip install -r requirements.txt
 > - 有关自动切片的配置在 `bilive.toml` 文件的 `[slice]` 部分。
 > - `auto_slice` 默认为 false, 即不进行自动切片。
 
-MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关闭，如果需要打开请将 `auto_slice` 参数设置为 `true`。其他配置分别有：
+MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关闭，如果需要打开请将 `auto_slice` 参数设置为 `true`，并且写下你自己的 prompt，其他配置分别有：
 - `slice_duration` 以秒为单位设置切片时长（不建议超过 180 秒）。
 - `slice_num` 设置切片数量。
 - `slice_overlap` 设置切片重叠时长。切片采用滑动窗口法处理，细节内容请见 [auto-slice-video](https://github.com/timerring/auto-slice-video)
@@ -178,11 +178,11 @@ MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关
 
 接下来配置模型有关的 `mllm_model` 参数即对应的 api-key，请自行根据链接注册账号并且申请对应 api key，填写在对应的参数中，请注意以下模型只有你在 `mllm_model` 参数中设置的那个模型会生效。
 
-| Company   |       Google        |    智谱        | 阿里云           |
-|----------------|-------------------|------------------|-----------------------|
-| Name   | Gemini-2.0-flash       | GLM-4V-PLUS | Qwen-2.5-72B-Instruct |
-| `mllm_model`   | `gemini`| `zhipu` | `qwen`  |
-| `API key`   | [gemini_api_key](https://aistudio.google.com/app/apikey) | [zhipu_api_key](https://www.bigmodel.cn/invite?icode=shBtZUfNE6FfdMH1R6NybGczbXFgPRGIalpycrEwJ28%3D) | [qwen_api_key](https://bailian.console.aliyun.com/?apiKey=1) |
+| Company   |    Alicloud           |       zhipu        |    Google        |
+|----------------|-----------------------|------------------|-------------------|
+| Name   | Qwen-2.5-72B-Instruct | GLM-4V-PLUS | Gemini-2.0-flash       |
+| `mllm_model`   | `qwen`  | `zhipu` | `gemini` |
+| `API key`   | [qwen_api_key](https://bailian.console.aliyun.com/?apiKey=1) | [zhipu_api_key](https://www.bigmodel.cn/invite?icode=shBtZUfNE6FfdMH1R6NybGczbXFgPRGIalpycrEwJ28%3D) | [gemini_api_key](https://aistudio.google.com/app/apikey) |
 
 
 #### 2.3 Image Generation Model（自动生成视频封面）
@@ -191,8 +191,7 @@ MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关
 > - 有关自动生成视频封面的配置在 `bilive.toml` 文件的 `[cover]` 部分。
 > - `generate_cover` 默认为 false, 即不进行自动生成视频封面。
 
-采用图生图多模态模型，自动获取视频截图并上传风格变换后的视频封面，如需使用本功能，请将 `generate_cover` 参数设置为 `true`。接下来需要配置的参数有 image_gen_model 和对应的 api key，请自行根据链接注册账号并且申请对应 api key，填写在对应的参数中，请注意以下模型只有你在 `image_gen_model` 参数中设置的那个模型会生效。
-
+采用图生图多模态模型，自动获取视频截图并上传风格变换后的视频封面，如需使用本功能，请将 `generate_cover` 参数设置为 `true`，并且写下你自己的 prompt，注意部分模型只支持英文，接下来需要配置的参数有 image_gen_model 和对应的 api key，请自行根据链接注册账号并且申请对应 api key，填写在对应的参数中，请注意以下模型只有你在 `image_gen_model` 参数中设置的那个模型会生效。
 
 | Company     | Model Name                        | `image_gen_model`   | `API Key`                                                                  |
 |--------------|--------------------------------|-------------------|---------------------------------------------------------------------------------|
@@ -208,10 +207,10 @@ MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关
 
 #### 3. 配置上传参数
 
-上传默认参数如下，[]中内容全部自动替换。可以在 `bilive.toml` 中自定义相关配置，映射关键词为 `{artist}`、`{date}`、`{title}`、`{source_link}`，可自行组合删减定制模板：
+在 `bilive.toml` 中自定义相关配置，映射关键词为 `{artist}`、`{date}`、`{title}`、`{source_link}`，请自行组合删减定制模板：
 
-- `title` 标题模板是`{artist}直播回放-{date}-{title}`，效果为"【弹幕+字幕】[XXX]直播回放-[日期]-[直播间标题]"，可自行修改。
-- `description` 简介模板是`{artist}直播，直播间地址：{source_link} 内容仅供娱乐，直播中主播的言论、观点和行为均由主播本人负责，不代表录播员的观点或立场。`，效果为"【弹幕+字幕】[XXX]直播，直播间地址：[https://live.bilibili.com/XXX] 内容仅供娱乐，直播中主播的言论、观点和行为均由主播本人负责，不代表录播员的观点或立场。"，可自行修改。
+- `title` 标题模板。
+- `description` 简介模板。
 - `gift_price_filter = 1` 表示过滤价格低于 1 元的礼物。
 - `reserve_for_fixing = false` 表示如果视频出现错误，重试失败后不保留视频用于修复，推荐硬盘空间有限的用户设置 false。
 - `upload_line = "auto"` 表示自动探测上传线路并上传，如果需要指定固定的线路，可以设置为 `bldsa`、`ws`、`tx`、`qn`、`bda2`。
