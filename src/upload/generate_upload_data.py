@@ -9,7 +9,6 @@ import subprocess
 import json
 
 def generate_video_data(video_path):
-    copyright = 2
     title = generate_title(video_path)
     desc = generate_desc(video_path)
     tid = 138
@@ -17,7 +16,7 @@ def generate_video_data(video_path):
     source = generate_source(video_path)
     cover = ""
     dynamic = ""
-    return copyright, title, desc, tid, tag, source, cover, dynamic
+    return title, desc, tid, tag, source, cover, dynamic
 
 def generate_slice_data(video_path):
     try:
@@ -31,10 +30,9 @@ def generate_slice_data(video_path):
         output = subprocess.check_output(command, stderr=subprocess.STDOUT).decode('utf-8')
         parsed_output = json.loads(output)
         title = parsed_output["format"]["tags"]["generate"]
-        copyright = 1
         tid = 138
         tag = "直播切片"
-        return copyright, title, tid, tag
+        return title, tid, tag
     except Exception as e:
         scan_log.error(f"Error in generate_slice_data: {e}")
         return None, None, None, None

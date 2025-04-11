@@ -19,7 +19,7 @@ from src.cover.cover_generator import generate_cover
 def upload_video(upload_path):
     try:
         if upload_path.endswith('.flv'):
-            copyright, title, tid, tag = generate_slice_data(upload_path)
+            title, tid, tag = generate_slice_data(upload_path)
             if GENERATE_COVER:
                 cover = generate_cover(upload_path)
             else:
@@ -30,9 +30,9 @@ def upload_video(upload_path):
                 update_upload_queue_lock(upload_path, 1)
                 return False
         else:
-            copyright, title, desc, tid, tag, source, cover, dynamic = generate_video_data(upload_path)
+            title, desc, tid, tag, source, cover, dynamic = generate_video_data(upload_path)
             yaml = ""
-        result = UploadController().upload_video_entry(upload_path, yaml, copyright, tid, title, desc, tag, source, cover, dynamic, cdn=UPLOAD_LINE)
+        result = UploadController().upload_video_entry(upload_path, yaml, tid, title, desc, tag, source, cover, dynamic, cdn=UPLOAD_LINE)
         if result == True:
             upload_log.info("Upload successfully, then delete the video")
             os.remove(upload_path)
