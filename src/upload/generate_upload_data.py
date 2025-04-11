@@ -44,7 +44,8 @@ def generate_slice_data(video_path):
         title = parsed_output["format"]["tags"]["generate"]
         tid = TID
         tag = "直播切片"
-        return title, tid, tag
+        source = "https://live.bilibili.com/"
+        return title, tid, tag, source
     except Exception as e:
         scan_log.error(f"Error in generate_slice_data: {e}")
         return None, None, None, None

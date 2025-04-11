@@ -31,12 +31,12 @@ from src.cover.cover_generator import generate_cover
 def upload_video(upload_path):
     try:
         if upload_path.endswith(".flv"):
-            title, tid, tag = generate_slice_data(upload_path)
+            title, tid, tag, source = generate_slice_data(upload_path)
             if GENERATE_COVER:
                 cover = generate_cover(upload_path)
             else:
                 cover = ""
-            yaml, desc, source, dynamic = ("",) * 4
+            yaml, desc, dynamic = ("",) * 3
             if title is None:
                 upload_log.error(
                     "Fail to upload slice video, the files will be locked."
@@ -132,8 +132,8 @@ def read_append_and_delete_lines():
             pass
         else:
             file = BILIVE_DIR + "/cookie.json"
-            LoginController().login_bilibili_with_cookie_file(file)
-            # LoginController().login_bilibili(export=False) # reserve for docker version
+            # LoginController().login_bilibili_with_cookie_file(file)
+            LoginController().login_bilibili(export=False) # reserve for docker version
             continue
         upload_queue = get_single_upload_queue()
         lock_queue = get_single_lock_queue()
