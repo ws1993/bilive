@@ -9,7 +9,7 @@ import subprocess
 import json
 
 def generate_video_data(video_path):
-    copyright = 1
+    copyright = 2
     title = generate_title(video_path)
     desc = generate_desc(video_path)
     tid = 138

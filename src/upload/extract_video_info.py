@@ -76,7 +76,7 @@ def generate_source(video_path):
         source_link = "https://live.bilibili.com/" + part_before_underscore
         return source_link
     else:
-        return None
+        return "https://live.bilibili.com/"
 
 
 if __name__ == "__main__":
