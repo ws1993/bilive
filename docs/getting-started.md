@@ -20,6 +20,7 @@ Automatically monitors and records Bilibili live broadcasts and danmaku (includi
   - `GLM-4V-PLUS`
   - `Gemini-2.0-flash`
   - `Qwen-2.5-72B-Instruct`
+  - `SenseNova V6 Pro`
 - **( :tada: NEW)Persistent login/download/upload video (supports multi-part posting)**：[bilitool](https://github.com/timerring/bilitool) has been open source, implements persistent login, download video and danmaku (including multi-part)/upload video (can post multi-part), query posting status, query detailed information, etc., one-click pip installation, can be operated using the command line cli, and can also be used as an api call.
 - **( :tada: NEW)Auto-loop multi-platform live streaming**：The tool has been open source [looplive](https://github.com/timerring/looplive) is a 7 x 24 hours fully automatic **loop multi-platform live streaming** tool.
 - **( :tada: NEW)Generate style-transformed video covers**：Use the image-to-image multi-modal model to automatically obtain the video screenshot and upload the style-transformed video cover.
@@ -35,4 +36,4 @@ Automatically monitors and records Bilibili live broadcasts and danmaku (includi
 
 The project architecture process is as follows:
 
-![](https://cdn.jsdelivr.net/gh/timerring/scratchpad2023/2024/2025-04-10-17-08-35.png)
+![](https://cdn.jsdelivr.net/gh/timerring/scratchpad2023/2024/2025-04-12-14-46-16.png)

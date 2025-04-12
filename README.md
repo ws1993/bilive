@@ -6,7 +6,7 @@
 
 *7 x 24 小时无人监守录制、渲染弹幕、识别字幕、自动切片、自动上传、兼容超低配机器，启动项目，人人都是录播员。*
 
-[:page_facing_up: Documentation](https://timerring.github.io/bilive/) |
+[:page_facing_up: English Documentation](https://timerring.github.io/bilive/) |
 [:gear: Installation](#quick-start) |
 [:thinking: Reporting Issues](https://github.com/timerring/bilive/issues/new/choose)
 
@@ -172,7 +172,7 @@ pip install -r requirements.txt
 > - `auto_slice` 默认为 false, 即不进行自动切片。
 > - 可以通过单元测试调试你自己的 prompt，单元测试在 `tests/test_autoslice.py`，执行 `python -m unittest` 即可，后接 `tests.test_autoslice` 测试整个模块，`tests.test_autoslice.TestXXXMain` 测试某个模型。
 
-MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关闭，如果需要打开请将 `auto_slice` 参数设置为 `true`，并且写下你自己的 `slice_prompt`(请包含关键词 `{artist}`会自动替换)，其他配置分别有：
+MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关闭，如果需要打开请将 `auto_slice` 参数设置为 `true`，并且写下你自己的 `slice_prompt`(可以包含 `{artist}` 关键词会自动替换)，其他配置分别有：
 - `slice_duration` 以秒为单位设置切片时长（不建议超过 180 秒）。
 - `slice_num` 设置切片数量。
 - `slice_overlap` 设置切片重叠时长。切片采用滑动窗口法处理，细节内容请见 [auto-slice-video](https://github.com/timerring/auto-slice-video)
