@@ -3,7 +3,7 @@ services:
     #build:
     #    context: .
     #    dockerfile: Dockerfile # Dockerfile-GPU
-    image: ghcr.io/timerring/bilive:latest # ghcr.io/timerring/bilive-gpu:latest
+    image: ghcr.io/timerring/bilive:0.3.0 # ghcr.io/timerring/bilive-gpu:0.3.0
     restart: always
     container_name: bilive_docker
     ports:
@@ -12,3 +12,9 @@ services:
     stdin_open: true
     volumes:
       - ./app:/app
+      - your/path/to/bilive.toml:/app/bilive.toml
+      - your/path/to/settings.toml:/app/settings.toml
+      - your/path/to/Videos:/app/Videos
+      - your/path/to/logs:/app/logs
+    environment:
+      - RECORD_KEY=your_record_password # your record password
