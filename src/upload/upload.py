@@ -132,8 +132,8 @@ def read_append_and_delete_lines():
             pass
         else:
             file = BILIVE_DIR + "/cookie.json"
-            # LoginController().login_bilibili_with_cookie_file(file)
-            LoginController().login_bilibili(export=False) # reserve for docker version
+            LoginController().login_bilibili_with_cookie_file(file)
+            # LoginController().login_bilibili(export=False) # reserve for docker version
             continue
         upload_queue = get_single_upload_queue()
         lock_queue = get_single_lock_queue()
