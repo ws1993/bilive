@@ -8,7 +8,8 @@
 
 [:page_facing_up: English Documentation](https://timerring.github.io/bilive/) |
 [:gear: Installation](#quick-start) |
-[:thinking: Reporting Issues](https://github.com/timerring/bilive/issues/new/choose)
+[:thinking: Reporting Issues](https://github.com/timerring/bilive/issues/new/choose) |
+[:speech_balloon: Chat](https://github.com/timerring/bilive/blob/main/assets/wechat.png)
 
 支持模型
 
@@ -327,6 +328,9 @@ docker run -itd \
 ```
 
 #### 有 GPU 版本
+
+> [!TIP]
+> 使用前请确保你有足够的使用前置知识，如果不熟悉在 docker 中使用 GPU，可以参考 [Docker With GPU](https://blog.timerring.com/posts/docker-with-gpu/)。
 
 有 GPU 版本仅支持 amd64 架构，已内置 small 参数量的模型，如需使用其他参数量模型，请自行按照 2.1.2 步骤调整。`your_record_password` 规则同上。
 
