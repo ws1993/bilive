@@ -4,12 +4,33 @@
     <img src="assets/headerLight.svg" alt="BILIVE" />
   </picture>
 
+**B**ilibili **I**ntelligent **L**ive-**I**n **V**elocity **E**ngine
+
 *7 x 24 小时无人监守录制、渲染弹幕、识别字幕、自动切片、自动上传、兼容超低配机器，启动项目，人人都是录播员。*
 
 [:page_facing_up: English Documentation](https://timerring.github.io/bilive/) |
 [:gear: Installation](#quick-start) |
 [:thinking: Reporting Issues](https://github.com/timerring/bilive/issues/new/choose) |
 [:speech_balloon: Chat](https://github.com/timerring/bilive/blob/main/assets/wechat.png)
+
+<div>
+  
+  <img src="assets/dmx.png" alt="DMXAPI.cn" width="450" height="300" />
+
+  **大模型API(<a href="https://www.dmxapi.cn/register?aff=vRzR" target="_blank">DMXAPI</a>)** 行业领先的 api 聚合平台 **[详细介绍](#特别感谢)**
+
+<details open>
+  <summary> DMX = 大模型拼音首字母 </summary>
+  
+  <ul>
+    <li><a href="https://www.dmxapi.cn/register?aff=vRzR">DMXAPI.cn</a> 一个key用全球大模型</li>
+    <li>GPT  Claude  Gemini  6.8折起</li>
+    <li><a href="https://ssvip.DMXAPI.com">ssvip.DMXAPI.com</a> 提供生产级稳定服务</li>
+  </ul>
+
+</details>
+
+</div>
 
 支持模型
 
@@ -38,15 +59,17 @@
 
 ##  1. Introduction
 
+> Have you noticed that *Live-In* is a wordplay :)
+>
 > 如果您觉得项目不错，欢迎 :star: 也欢迎 PR 合作，如果有任何疑问，欢迎提 issue 交流。
 > 
 > **敬告：本项目仅供学习交流使用，请在征得对方许可的情况下录制，请勿未经授权私自将内容用于商业用途，请勿用于大规模录制，违者会被官方封禁，法律后果自负。**
 
-自动监听并录制B站直播和弹幕（含付费留言、礼物等），根据分辨率转换弹幕、语音识别字幕并渲染进视频，根据弹幕密度切分精彩片段并通过视频理解大模型生成有趣的标题，根据图像生成模型自动生成视频封面，自动投稿视频和切片至B站，兼容无GPU版本，兼容超低配置服务器与主机。
+自动监听并录制B站直播和弹幕（含付费留言、礼物等），根据分辨率转换弹幕、语音识别字幕并渲染进视频，根据弹幕密度切分精彩片段并通过视频理解大模型生成有趣的标题，根据图像生成模型自动生成视频封面，自动投稿视频和切片至B站，兼容无GPU版本，兼容 x64 及 arm64 超低配置服务器与主机。
 
 ## 2. Major features
 
-- **速度快**：采用 `pipeline` 流水线处理视频，理想情况下录播与直播相差半小时以内，没下播就能上线录播，**目前已知 b 站录播最快版本**！
+- **速度快**：采用 `pipeline` 流水线处理视频，理想情况下录播与直播相差半小时以内，没下播就能上线录播，**已知 b 站录播最快的稳定版本**！
 - **( 🎉 NEW)多架构**：适配 amd64 及 arm64 架构！
 - **多房间**：同时录制多个直播间内容视频以及弹幕文件（包含普通弹幕，付费弹幕以及礼物上舰等信息）。
 - **占用小**：自动删除本地已上传的视频，极致节省空间。
@@ -57,7 +80,7 @@
 - **( :tada: NEW)自动渲染字幕**：采用 OpenAI 的开源模型 `whisper`，自动识别视频内语音并转换为字幕渲染至视频中。
 - **( :tada: NEW)自动切片上传**：根据弹幕密度计算寻找高能片段并切片，该自动切片工具库已开源 [auto-slice-video](https://github.com/timerring/auto-slice-video)，结合多模态视频理解大模型自动生成有意思的切片标题及内容，并且自动上传，目前已经支持的模型有：
   - `GLM-4V-PLUS`
-  - `Gemini-2.0-flash`
+  - `Gemini-2.5-flash`
   - `Qwen-2.5-72B-Instruct`
   - `SenseNova V6 Pro`
 - **( :tada: NEW)持久化登录/下载/上传视频(支持多p投稿)**：[bilitool](https://github.com/timerring/bilitool) 已经开源，实现持久化登录，下载视频及弹幕(含多p)/上传视频(可分p投稿)，查询投稿状态，查询详细信息等功能，一键pip安装，可以使用命令行 cli 操作，也可以作为api调用。
@@ -73,11 +96,12 @@
   - `Recraft`
   - `Amazon Titan Image Generator V2`
   - `Hidream I1`
+  - `kling-v1-5`
 
 
 项目架构流程如下：
 
-![](https://cdn.jsdelivr.net/gh/timerring/scratchpad2023/2024/2025-04-12-17-04-11.png)
+![](https://cdn.jsdelivr.net/gh/timerring/scratchpad2023/2024/2025-05-03-22-09-56.png)
 
 ## 3. 测试硬件
 
@@ -201,18 +225,29 @@ MLLM 模型主要用于自动切片后的切片标题生成，此功能默认关
 
 采用图生图多模态模型，自动获取视频截图并上传风格变换后的视频封面，如需使用本功能，请将 `generate_cover` 参数设置为 `true`，并且写下你自己的 prompt，注意部分模型只支持英文，接下来需要配置的参数有 image_gen_model 和对应的 api key，请自行根据链接注册账号并且申请对应 api key，填写在对应的参数中，请注意以下模型只有你在 `image_gen_model` 参数中设置的那个模型会生效。
 
+推荐使用大模型API([dmxapi.cn](https://www.dmxapi.cn/register?aff=vRzR))，一个 Key 用全球大模型，[查看详细介绍](#特别感谢)。
+
 | Company     | Model Name                        | `image_gen_model`   | `API Key`                                                                  |
 |--------------|--------------------------------|-------------------|---------------------------------------------------------------------------------|
-| Minimax      | image-01                       | `minimax`         | [minimax_api_key](https://platform.minimaxi.com/user-center/basic-information/interface-key)                                    |
-| Kwai  | Kolors                    | `siliconflow`       | [siliconflow_api_key](https://cloud.siliconflow.cn/i/3Szr5BVg)                  |
-| Tencent      | Hunyuan                | `tencent`           | [tencent_secret_id and tencent_secret_key](https://console.cloud.tencent.com/cam/capi)                   |
-| Baidu        | ERNIE irag-1.0                   | `baidu`             | [baidu_api_key](https://console.bce.baidu.com/iam/key/list)                     |
-| Stability AI | Stable Diffusion 3.5 large turbo   | `stability`         | [stability_api_key](https://platform.stability.ai/account/keys)                 |
-| Luma Labs    | Photon                    | `luma`              | [luma_api_key](https://lumalabs.ai/api/keys)                               |
-| Ideogram     | Ideogram V_2                   | `ideogram`          | [ideogram_api_key](https://ideogram.ai/manage-api)                              |
-| Recraft      | Recraft V3                       | `recraft`           | [recraft_api_key](https://www.recraft.ai/profile/api)                           |
-| Amazon       | Titan Image Generator V2                        | `amazon`            | [aws_access_key_id and aws_secret_access_key](https://aws.amazon.com/console/)                               |
-| Hidream      | Hidream I1                       | `hidream`            | [hidream_api_key](https://www.hidreamai.com/platform/token)                               |
+| Kwai      | v1-5                       | `kling`         | [dmx_api_token](https://www.dmxapi.cn/token)                                  |
+
+<details>
+<summary>其他支持的图像生成模型</summary>
+
+| Company     | Model Name                        | `image_gen_model`   | `API Key`                                                                  |
+|--------------|--------------------------------|-------------------|---------------------------------------------------------------------------------|
+| Minimax      | image-01                       | `minimax`         | minimax_api_key                                  |
+| Kwai  | Kolors                    | `siliconflow`       | siliconflow_api_key                  |
+| Tencent      | Hunyuan                | `tencent`           | tencent_secret_id and tencent_secret_key                  |
+| Baidu        | ERNIE irag-1.0                   | `baidu`             | baidu_api_key                    |
+| Stability AI | Stable Diffusion 3.5 large turbo   | `stability`         | stability_api_key                |
+| Luma Labs    | Photon                    | `luma`              | luma_api_key                               |
+| Ideogram     | Ideogram V_2                   | `ideogram`          | ideogram_api_key                             |
+| Recraft      | Recraft V3                       | `recraft`           | recraft_api_key                          |
+| Amazon       | Titan Image Generator V2                        | `amazon`            | aws_access_key_id and aws_secret_access_key                      |
+| Hidream      | Hidream I1                       | `hidream`            | hidream_api_key                              |
+
+</details>
 
 #### 3. 配置上传参数
 
@@ -324,7 +359,7 @@ docker run -itd \
     --name bilive_docker \
     -e RECORD_KEY=your_record_password \
     -p 22333:2233 \
-    ghcr.io/timerring/bilive:0.3.0
+    ghcr.io/timerring/bilive:0.3.1
 ```
 
 #### 有 GPU 版本
@@ -344,7 +379,7 @@ sudo docker run -itd \
     --name bilive_docker_gpu \
     -e RECORD_KEY=your_record_password \
     -p 22333:2233 \
-    ghcr.io/timerring/bilive-gpu:0.3.0
+    ghcr.io/timerring/bilive-gpu:0.3.1
 ```
 
 ### Docker Compose
@@ -370,6 +405,12 @@ docker compose up -d
 
 ## 特别感谢
 
+- [大模型API](https://www.dmxapi.cn/register?aff=vRzR)([DMXAPI.cn](https://www.dmxapi.cn/register?aff=vRzR))，**DMX 取自“大模型”的拼音首字母，行业领先的智能API聚合服务平台**，旨在帮助 LLM 应用开发的初学者轻松接入多种大模型，快速进入 AI 应用的广阔领域。
+  1. **人民币计价全球人工智能大模型API**，[聚合中国和全球**300+多模态大模型**](https://www.dmxapi.cn/pricing)，直连畅通使用国内外领先大模型 API 服务，1个Key使用全模型，涵盖各个领域模型，应有尽有。
+  2. **RPM / TPM 无上限**，注册就是顶级账号，不设 RPM / TPM 限制，企业客户集群服务器，支持无限并发。
+  3. **合规发票 充值即开**，企业客户支持公对公付款，开具正规发票。
+  4. **海外模型低至 7 折，模型原厂集采直供**，通过直接与大模型原厂合作，我们采用集中采购的方式获取资源，确保为您提供极具竞争力的价格，**以更低的成本获取顶级的大模型服务**。
+  5. **坚守诚信与专业**，确保向客户提供真实、可靠的模型服务，维护客户的信任与满意度，[服务与承诺](https://dmxapi.cn/chengnuo.html)。
 - [acgnhiki/blrec](https://github.com/acgnhiki/blrec)
 - [OpenAI/whisper](https://github.com/OpenAI/whisper)
 - [biliup/biliup-rs](https://github.com/biliup/biliup-rs)
